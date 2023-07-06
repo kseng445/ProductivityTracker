@@ -2,7 +2,7 @@
   "name": "productivitytracker",
   "version": "1.0.0",
   "description": "App to help track personal productivity and goals",
-  "main": "index.js",
+  "main": "App.jsx",
   "scripts": {
     "server": "npx nodemon server/index.js",
     "build": "webpack --mode production --watch"

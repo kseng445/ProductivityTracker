@@ -4,6 +4,7 @@ const Goals = ({ goalCategory, setGoalCategory }) => {
   return (
     <>
       <button
+        className={goalCategory === 0 ? "active" : ""}
         onClick={() => {
           setGoalCategory(0);
         }}
@@ -11,13 +12,13 @@ const Goals = ({ goalCategory, setGoalCategory }) => {
         Everyday
       </button>
       <button
+        className={goalCategory === 1 ? "active" : ""}
         onClick={() => {
           setGoalCategory(1);
         }}
       >
         Long-term
       </button>
-      <div>{goalCategory === 0 ? "Everyday" : "Long-term"}</div>
     </>
   );
 };

@@ -15,7 +15,7 @@ const App = () => {
     // user select
     pageContent = (
       <>
-        <Navbar setPage={setPage} />
+        <Navbar page={page} setPage={setPage} />
         <br></br>
         <UserSelect user={user} setUser={setUser} />
       </>
@@ -24,7 +24,7 @@ const App = () => {
     // timeline
     pageContent = (
       <>
-        <Navbar setPage={setPage} />
+        <Navbar page={page} setPage={setPage} />
         <br></br>
         Timeline Page
       </>
@@ -33,7 +33,7 @@ const App = () => {
     // goals
     pageContent = (
       <>
-        <Navbar setPage={setPage} />
+        <Navbar page={page} setPage={setPage} />
         <br></br>
         <Goals goalCategory={goalCategory} setGoalCategory={setGoalCategory} />
       </>
@@ -42,7 +42,7 @@ const App = () => {
     // history
     pageContent = (
       <>
-        <Navbar setPage={setPage} />
+        <Navbar page={page} setPage={setPage} />
         <br></br>
         History Page
       </>

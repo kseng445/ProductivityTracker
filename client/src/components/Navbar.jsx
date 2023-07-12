@@ -1,9 +1,10 @@
 import { useState } from "react";
 
-const Navbar = ({ setPage }) => {
+const Navbar = ({ page, setPage }) => {
   return (
     <nav>
       <button
+        className={page === 0 ? "active" : ""}
         onClick={() => {
           setPage(0);
         }}
@@ -11,6 +12,7 @@ const Navbar = ({ setPage }) => {
         User
       </button>
       <button
+        className={page === 1 ? "active" : ""}
         onClick={() => {
           setPage(1);
         }}
@@ -18,6 +20,7 @@ const Navbar = ({ setPage }) => {
         Timeline
       </button>
       <button
+        className={page === 2 ? "active" : ""}
         onClick={() => {
           setPage(2);
         }}
@@ -25,6 +28,7 @@ const Navbar = ({ setPage }) => {
         Goals
       </button>
       <button
+        className={page === 3 ? "active" : ""}
         onClick={() => {
           setPage(3);
         }}

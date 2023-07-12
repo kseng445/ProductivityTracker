@@ -4,6 +4,7 @@ const UserSelect = ({ user, setUser }) => {
   return (
     <>
       <button
+        className={user === "Kevin" ? "active" : ""}
         onClick={() => {
           setUser("Kevin");
         }}
@@ -11,13 +12,13 @@ const UserSelect = ({ user, setUser }) => {
         Kevin
       </button>
       <button
+        className={user === "Sela" ? "active" : ""}
         onClick={() => {
           setUser("Sela");
         }}
       >
         Sela
       </button>
-      <div>{user === "" ? "No user selected" : user + " is now the user"}</div>
     </>
   );
 };

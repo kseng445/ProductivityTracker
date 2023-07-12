@@ -1,11 +1,13 @@
 import { render } from "react-dom";
 import { useState } from "react";
 import Navbar from "./components/Navbar.jsx";
-import UserSelect from "./components/userselect/UserSelect.jsx";
+import UserSelect from "./components/user/UserSelect.jsx";
+import Goals from "./components/goals/Goals.jsx";
 
 const App = () => {
   const [page, setPage] = useState(0);
   const [user, setUser] = useState("");
+  const [goalCategory, setGoalCategory] = useState(0);
 
   var pageContent;
 
@@ -14,7 +16,8 @@ const App = () => {
     pageContent = (
       <>
         <Navbar setPage={setPage} />
-        <UserSelect setUser={setUser} />
+        <br></br>
+        <UserSelect user={user} setUser={setUser} />
       </>
     );
   } else if (page === 1) {
@@ -22,6 +25,7 @@ const App = () => {
     pageContent = (
       <>
         <Navbar setPage={setPage} />
+        <br></br>
         Timeline Page
       </>
     );
@@ -30,7 +34,8 @@ const App = () => {
     pageContent = (
       <>
         <Navbar setPage={setPage} />
-        Goals Page
+        <br></br>
+        <Goals goalCategory={goalCategory} setGoalCategory={setGoalCategory} />
       </>
     );
   } else if (page === 3) {
@@ -38,6 +43,7 @@ const App = () => {
     pageContent = (
       <>
         <Navbar setPage={setPage} />
+        <br></br>
         History Page
       </>
     );

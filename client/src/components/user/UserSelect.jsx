@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const UserSelect = ({ setUser }) => {
+const UserSelect = ({ user, setUser }) => {
   return (
     <>
       <button
@@ -17,6 +17,7 @@ const UserSelect = ({ setUser }) => {
       >
         Sela
       </button>
+      <div>{user === "" ? "No user selected" : user + " is now the user"}</div>
     </>
   );
 };

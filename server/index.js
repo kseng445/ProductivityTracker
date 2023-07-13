@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const path = require("path");
+const postgreSQL = require("../database/index.js"); // imported/required just to test if the connection can work to EC2 instance hosted PostgreSQL database
 
 const app = express();
 app.set("view engine", "ejs");
@@ -17,7 +18,6 @@ app.get("/", function (req, res) {
   res.render("index.html");
 });
 
-var port = 3000;
-app.listen(port, () => {
-  console.log("Server listening on port ", port);
+app.listen(process.env.PORT, () => {
+  console.log("Server listening on port", process.env.PORT);
 });

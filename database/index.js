@@ -13,7 +13,7 @@ client.connect((err) => {
   if (err) {
     throw err;
   }
-  console.log("Connected to PostgreSQL database: 'productivitytracker'");
+  console.log(`Connected to PostgreSQL database: ${process.env.DBNAME}`);
 });
 
 module.exports = client;

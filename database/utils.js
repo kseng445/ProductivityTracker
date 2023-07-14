@@ -11,17 +11,26 @@ const getGoals = () => {
     });
 };
 
-const postGoals = () => {
-  var goal = "Do 10 hours of gamedev";
-  var quantity = 10;
+const postGoals = (body) => {
+  var { goal, quantity, user_, category } = body;
   var current = 0;
-  var user_ = "Kevin";
-  var category = 1;
-  var order_ = 0;
+  var order_ = 0; //this needs work, rn it's mock value
   return db
     .query(
-      `INSERT INTO goals (goal, quantity, current, user_, category, order, deactivated) VALUES ('${goal}', ${quantity}, ${current}, '${user_}', ${category}, ${order_}, false);`
+      `INSERT INTO goals (goal, quantity, current, user_, category, order_, deactivated) VALUES ('${goal}', ${quantity}, ${current}, '${user_}', ${category}, ${order_}, false);`
     )
+    .then(() => {
+      return true;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+const patchGoalCurrent = (body) => {
+  var { id, current } = body;
+  return db
+    .query(`UPDATE goals SET current = ${current} WHERE id = ${id}`)
     .then(() => {
       return true;
     })
@@ -33,4 +42,5 @@ const postGoals = () => {
 module.exports = {
   getGoals,
   postGoals,
+  patchGoalCurrent,
 };

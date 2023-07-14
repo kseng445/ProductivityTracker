@@ -1,17 +1,20 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import PostModal from "./PostModal.jsx";
+import GoalList from "./GoalList.jsx";
 
-const Goals = ({ goalCategory, setGoalCategory }) => {
+const Goals = ({ goalCategory, setGoalCategory, user }) => {
   const [goals, setGoals] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+
   const handleGetClick = () => {
     axios.get("/goals").then((result) => {
       console.log(result.data);
+      setGoals(result.data);
     });
   };
   const handlePostClick = () => {
-    axios.post("/goals").then(() => {
-      console.log("posted");
-    });
+    setShowModal(true);
   };
   return (
     <>
@@ -32,20 +35,16 @@ const Goals = ({ goalCategory, setGoalCategory }) => {
         Long-term
       </button>
       <br></br>
-      <button
-        onClick={() => {
-          handleGetClick();
-        }}
-      >
-        mock get
-      </button>
-      <button
-        onClick={() => {
-          handlePostClick();
-        }}
-      >
-        mock post
-      </button>
+      <button onClick={handleGetClick}>mock get</button>
+      <button onClick={handlePostClick}>Add Goal</button>
+      <GoalList goals={goals} goalCategory={goalCategory} />
+      {showModal ? (
+        <PostModal
+          setShowModal={setShowModal}
+          user={user}
+          goalCategory={goalCategory}
+        />
+      ) : null}
     </>
   );
 };

@@ -35,7 +35,11 @@ const App = () => {
       <>
         <Navbar page={page} setPage={setPage} />
         <br></br>
-        <Goals goalCategory={goalCategory} setGoalCategory={setGoalCategory} />
+        <Goals
+          goalCategory={goalCategory}
+          setGoalCategory={setGoalCategory}
+          user={user}
+        />
       </>
     );
   } else if (page === 3) {

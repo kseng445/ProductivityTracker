@@ -1,6 +1,18 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 const Goals = ({ goalCategory, setGoalCategory }) => {
+  const [goals, setGoals] = useState([]);
+  const handleGetClick = () => {
+    axios.get("/goals").then((result) => {
+      console.log(result.data);
+    });
+  };
+  const handlePostClick = () => {
+    axios.post("/goals").then(() => {
+      console.log("posted");
+    });
+  };
   return (
     <>
       <button
@@ -18,6 +30,21 @@ const Goals = ({ goalCategory, setGoalCategory }) => {
         }}
       >
         Long-term
+      </button>
+      <br></br>
+      <button
+        onClick={() => {
+          handleGetClick();
+        }}
+      >
+        mock get
+      </button>
+      <button
+        onClick={() => {
+          handlePostClick();
+        }}
+      >
+        mock post
       </button>
     </>
   );

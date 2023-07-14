@@ -17,9 +17,10 @@ const postGoals = () => {
   var current = 0;
   var user_ = "Kevin";
   var category = 1;
+  var order_ = 0;
   return db
     .query(
-      `INSERT INTO goals (goal, quantity, current, user_, category, deactivated) VALUES ('${goal}', ${quantity}, ${current}, '${user_}', ${category}, false);`
+      `INSERT INTO goals (goal, quantity, current, user_, category, order, deactivated) VALUES ('${goal}', ${quantity}, ${current}, '${user_}', ${category}, ${order_}, false);`
     )
     .then(() => {
       return true;

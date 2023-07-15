@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const PostModal = ({ setShowModal, user, goalCategory }) => {
+const AddGoal = ({ setShowModal, user, goalCategory }) => {
   const [goal, setGoal] = useState("");
   const [showError, setShowError] = useState(false);
 
   const handleConfirm = () => {
     var quantity = goal.match(/\d+/g);
-    if (quantity === null || quantity.length !== 1) {
+    if (quantity === null) {
+      quantity = [1];
+    } else if (quantity.length !== 1) {
       setShowError(true);
       return;
     }
@@ -58,4 +60,4 @@ const PostModal = ({ setShowModal, user, goalCategory }) => {
   );
 };
 
-export default PostModal;
+export default AddGoal;

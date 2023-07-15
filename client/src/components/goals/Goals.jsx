@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import PostModal from "./PostModal.jsx";
+import AddGoal from "./AddGoal.jsx";
 import GoalList from "./GoalList.jsx";
 
 const Goals = ({ goalCategory, setGoalCategory, user }) => {
@@ -39,7 +39,7 @@ const Goals = ({ goalCategory, setGoalCategory, user }) => {
       <button onClick={handlePostClick}>Add Goal</button>
       <GoalList goals={goals} goalCategory={goalCategory} />
       {showModal ? (
-        <PostModal
+        <AddGoal
           setShowModal={setShowModal}
           user={user}
           goalCategory={goalCategory}

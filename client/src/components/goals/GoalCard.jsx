@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import ProgressBar from "./ProgressBar.jsx";
 import axios from "axios";
 
 const GoalCard = ({ goal, current, quantity, id }) => {
@@ -47,6 +48,7 @@ const GoalCard = ({ goal, current, quantity, id }) => {
   return (
     <div className="goal-card">
       <div>{goal}</div>
+      <ProgressBar current={current} quantity={quantity} />
       <div>{current + "/" + quantity}</div>
       <button onClick={handleSubtract}>-</button>
       <button onClick={handleAdd}>+</button>

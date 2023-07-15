@@ -21,7 +21,7 @@ button.active {
   border-radius: 8px;
   width: 400px;
   max-width: 90%;
-  z-index: 9999;
+  z-index: 1;
 }
 
 .goal-card {
@@ -29,6 +29,7 @@ button.active {
 }
 
 .progress-bar-container {
+  position: relative;
   width: 200px;
   height: 20px;
   background-color: #f0f0f0;
@@ -40,4 +41,12 @@ button.active {
   height: 100%;
   background-color: #4caf50;
   transition: width 0.3s ease-in-out;
+}
+
+.progress-bar-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
 }

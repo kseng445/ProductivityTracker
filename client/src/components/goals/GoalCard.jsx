@@ -49,7 +49,6 @@ const GoalCard = ({ goal, current, quantity, id }) => {
     <div className="goal-card">
       <div>{goal}</div>
       <ProgressBar current={current} quantity={quantity} />
-      <div>{current + "/" + quantity}</div>
       <button onClick={handleSubtract}>-</button>
       <button onClick={handleAdd}>+</button>
     </div>

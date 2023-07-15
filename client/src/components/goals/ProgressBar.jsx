@@ -9,6 +9,7 @@ const ProgressBar = ({ current, quantity }) => {
         className="progress-bar-value"
         style={{ width: `${progress}%` }}
       ></div>
+      <span className="progress-bar-text">{current + "/" + quantity}</span>
     </div>
   );
 };

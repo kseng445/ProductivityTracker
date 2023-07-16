@@ -3,16 +3,16 @@ import axios from "axios";
 import AddGoal from "./AddGoal.jsx";
 import GoalList from "./GoalList.jsx";
 
-const Goals = ({ goalCategory, setGoalCategory, user }) => {
-  const [goals, setGoals] = useState([]);
+const Goals = ({
+  goals,
+  goalCategory,
+  setGoalCategory,
+  refreshGoalsKey,
+  setRefreshGoalsKey,
+  user,
+}) => {
   const [showModal, setShowModal] = useState(false);
 
-  const handleGetClick = () => {
-    axios.get("/goals").then((result) => {
-      console.log(result.data);
-      setGoals(result.data);
-    });
-  };
   const handlePostClick = () => {
     setShowModal(true);
   };
@@ -35,14 +35,20 @@ const Goals = ({ goalCategory, setGoalCategory, user }) => {
         Long-term
       </button>
       <br></br>
-      <button onClick={handleGetClick}>mock get</button>
       <button onClick={handlePostClick}>Add Goal</button>
-      <GoalList goals={goals} goalCategory={goalCategory} />
+      <GoalList
+        goals={goals}
+        goalCategory={goalCategory}
+        refreshGoalsKey={refreshGoalsKey}
+        setRefreshGoalsKey={setRefreshGoalsKey}
+      />
       {showModal ? (
         <AddGoal
           setShowModal={setShowModal}
           user={user}
           goalCategory={goalCategory}
+          refreshGoalsKey={refreshGoalsKey}
+          setRefreshGoalsKey={setRefreshGoalsKey}
         />
       ) : null}
     </>

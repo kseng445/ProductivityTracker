@@ -1,11 +1,21 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const AddGoal = ({ setShowModal, user, goalCategory }) => {
+const AddGoal = ({
+  setShowModal,
+  user,
+  goalCategory,
+  refreshGoalsKey,
+  setRefreshGoalsKey,
+}) => {
   const [goal, setGoal] = useState("");
   const [showError, setShowError] = useState(false);
 
   const handleConfirm = () => {
+    if (goal === "") {
+      setShowError(true);
+      return;
+    }
     var quantity = goal.match(/\d+/g);
     if (quantity === null) {
       quantity = [1];
@@ -22,8 +32,8 @@ const AddGoal = ({ setShowModal, user, goalCategory }) => {
     axios
       .post("/goals", body)
       .then(() => {
-        // make goal list refresh or something after new goal is added
         setShowModal(false);
+        setRefreshGoalsKey(!refreshGoalsKey);
       })
       .catch(() => {
         console.log("There was an error trying to post /goals");

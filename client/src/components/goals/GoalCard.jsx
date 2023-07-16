@@ -2,7 +2,14 @@ import { useState, useEffect } from "react";
 import ProgressBar from "./ProgressBar.jsx";
 import axios from "axios";
 
-const GoalCard = ({ goal, current, quantity, id }) => {
+const GoalCard = ({
+  goal,
+  current,
+  quantity,
+  id,
+  refreshGoalsKey,
+  setRefreshGoalsKey,
+}) => {
   const handleAdd = () => {
     if (current < quantity) {
       var body = {
@@ -13,8 +20,8 @@ const GoalCard = ({ goal, current, quantity, id }) => {
       axios
         .patch("/goals/current", body)
         .then(() => {
-          // make goal list refresh or something after current is updated
-          console.log("Successfully updated current++");
+          console.log("Successfully updated current + 1");
+          setRefreshGoalsKey(!refreshGoalsKey);
         })
         .catch(() => {
           console.log("There was an error trying to patch /goals");
@@ -34,8 +41,8 @@ const GoalCard = ({ goal, current, quantity, id }) => {
       axios
         .patch("/goals/current", body)
         .then(() => {
-          // make goal list refresh or something after current is updated
-          console.log("Successfully updated current++");
+          console.log("Successfully updated current - 1");
+          setRefreshGoalsKey(!refreshGoalsKey);
         })
         .catch(() => {
           console.log("There was an error trying to patch /goals");

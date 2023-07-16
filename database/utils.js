@@ -1,8 +1,9 @@
 const db = require("./index.js");
 
-const getGoals = () => {
+const getGoals = (query) => {
+  var { user_ } = query;
   return db
-    .query(`SELECT * FROM goals;`)
+    .query(`SELECT * FROM goals WHERE user_ = '${user_}';`)
     .then((data) => {
       return data.rows;
     })

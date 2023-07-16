@@ -21,7 +21,7 @@ app.get("/", (req, res) => {
 
 app.get("/goals", async (req, res) => {
   try {
-    var goals = await getGoals();
+    var goals = await getGoals(req.query);
     res.status(200).send(goals);
   } catch (err) {
     console.error(err);

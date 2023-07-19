@@ -13,6 +13,7 @@ const Goals = ({
 }) => {
   const [showModal, setShowModal] = useState(false);
   const [showEditOptions, setShowEditOptions] = useState(false);
+  const [renderedGoals, setRenderedGoals] = useState([]);
 
   const handlePostClick = () => {
     setShowModal(true);
@@ -48,6 +49,8 @@ const Goals = ({
         refreshGoalsKey={refreshGoalsKey}
         setRefreshGoalsKey={setRefreshGoalsKey}
         showEditOptions={showEditOptions}
+        renderedGoals={renderedGoals}
+        setRenderedGoals={setRenderedGoals}
       />
       {showModal ? (
         <AddGoal
@@ -56,6 +59,7 @@ const Goals = ({
           goalCategory={goalCategory}
           refreshGoalsKey={refreshGoalsKey}
           setRefreshGoalsKey={setRefreshGoalsKey}
+          renderedGoals={renderedGoals}
         />
       ) : null}
     </>

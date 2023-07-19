@@ -13,9 +13,8 @@ const getGoals = (query) => {
 };
 
 const postGoals = (body) => {
-  var { goal, quantity, user_, category } = body;
+  var { goal, quantity, user_, category, order_ } = body;
   var current = 0;
-  var order_ = 0; //this needs work, rn it's mock value
   return db
     .query(
       `INSERT INTO goals (goal, quantity, current, user_, category, order_, deactivated) VALUES ('${goal}', ${quantity}, ${current}, '${user_}', ${category}, ${order_}, false);`

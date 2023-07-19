@@ -9,8 +9,9 @@ const GoalList = ({
   refreshGoalsKey,
   setRefreshGoalsKey,
   showEditOptions,
+  renderedGoals,
+  setRenderedGoals,
 }) => {
-  const [renderedGoals, setRenderedGoals] = useState([]);
   const [sortedGoals, setSortedGoals] = useState([]);
   const [tentativeOrder, setTentativeOrder] = useState([]);
   const [isInitialRender, setIsInitialRender] = useState(true);

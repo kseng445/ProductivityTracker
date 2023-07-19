@@ -7,6 +7,7 @@ const AddGoal = ({
   goalCategory,
   refreshGoalsKey,
   setRefreshGoalsKey,
+  renderedGoals,
 }) => {
   const [goal, setGoal] = useState("");
   const [showError, setShowError] = useState(false);
@@ -16,18 +17,19 @@ const AddGoal = ({
       setShowError(true);
       return;
     }
-    var quantity = goal.match(/\d+/g);
+    let quantity = goal.match(/\d+/g);
     if (quantity === null) {
       quantity = [1];
     } else if (quantity.length !== 1) {
       setShowError(true);
       return;
     }
-    var body = {
+    let body = {
       goal: goal,
       quantity: parseInt(quantity[0]),
       user_: user,
       category: goalCategory,
+      order_: renderedGoals.length,
     };
     axios
       .post("/goals", body)

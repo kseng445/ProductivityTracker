@@ -3,7 +3,7 @@ const express = require("express");
 const path = require("path");
 const postgreSQL = require("../database/index.js"); // imported/required just to test if the connection can work to EC2 instance hosted PostgreSQL database
 const utils = require("../database/utils.js");
-const { getGoals, postGoals, patchGoalCurrent } = utils;
+const { getGoals, postGoals, patchGoalCurrent, patchGoalOrder_s } = utils;
 
 const app = express();
 app.use(express.json());
@@ -42,6 +42,17 @@ app.post("/goals", (req, res) => {
 
 app.patch("/goals/current", (req, res) => {
   patchGoalCurrent(req.body).then((result) => {
+    if (result === true) {
+      res.sendStatus(201);
+    } else {
+      console.error(result);
+      res.sendStatus(500);
+    }
+  });
+});
+
+app.patch("/goals/order_", (req, res) => {
+  patchGoalOrder_s(req.body).then((result) => {
     if (result === true) {
       res.sendStatus(201);
     } else {

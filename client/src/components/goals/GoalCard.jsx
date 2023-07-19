@@ -7,16 +7,19 @@ const GoalCard = ({
   current,
   quantity,
   id,
+  order_,
   refreshGoalsKey,
   setRefreshGoalsKey,
+  showEditOptions,
+  tentativeOrder,
+  setTentativeOrder,
 }) => {
   const handleAdd = () => {
     if (current < quantity) {
-      var body = {
+      let body = {
         id: id,
         current: current + 1,
       };
-      console.log();
       axios
         .patch("/goals/current", body)
         .then(() => {
@@ -24,7 +27,7 @@ const GoalCard = ({
           setRefreshGoalsKey(!refreshGoalsKey);
         })
         .catch(() => {
-          console.log("There was an error trying to patch /goals");
+          console.log("There was an error trying to patch /goals/current");
         });
     } else {
       console.log("You have already reached your goal!");
@@ -33,11 +36,10 @@ const GoalCard = ({
 
   const handleSubtract = () => {
     if (current > 0) {
-      var body = {
+      let body = {
         id: id,
         current: current - 1,
       };
-      console.log();
       axios
         .patch("/goals/current", body)
         .then(() => {
@@ -45,11 +47,35 @@ const GoalCard = ({
           setRefreshGoalsKey(!refreshGoalsKey);
         })
         .catch(() => {
-          console.log("There was an error trying to patch /goals");
+          console.log("There was an error trying to patch /goals/current");
         });
     } else {
       console.log("You can't go below 0!");
     }
+  };
+
+  const handleOrderChange = (direction) => {
+    let tempOrder = tentativeOrder.slice();
+    for (let i = 0; i < tempOrder.length; i++) {
+      if (tempOrder[i] === order_) {
+        if (direction === "up") {
+          if (i !== 0) {
+            [tempOrder[i], tempOrder[i - 1]] = [tempOrder[i - 1], tempOrder[i]];
+            break;
+          } else {
+            console.log("Cannot move top-most positioned goal up");
+          }
+        } else if (direction === "down") {
+          if (i !== tempOrder.length - 1) {
+            [tempOrder[i], tempOrder[i + 1]] = [tempOrder[i + 1], tempOrder[i]];
+            break;
+          } else {
+            console.log("Cannot move bottom-most positioned goal down");
+          }
+        }
+      }
+    }
+    setTentativeOrder(tempOrder);
   };
 
   return (
@@ -58,6 +84,13 @@ const GoalCard = ({
       <ProgressBar current={current} quantity={quantity} />
       <button onClick={handleSubtract}>-</button>
       <button onClick={handleAdd}>+</button>
+      {showEditOptions ? (
+        <>
+          <button onClick={() => handleOrderChange("up")}>↑</button>
+          <button onClick={() => handleOrderChange("down")}>↓</button>
+          <button>Remove</button>
+        </>
+      ) : null}
     </div>
   );
 };

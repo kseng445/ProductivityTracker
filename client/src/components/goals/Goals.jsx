@@ -12,9 +12,14 @@ const Goals = ({
   user,
 }) => {
   const [showModal, setShowModal] = useState(false);
+  const [showEditOptions, setShowEditOptions] = useState(false);
 
   const handlePostClick = () => {
     setShowModal(true);
+  };
+
+  const handleEditClick = () => {
+    setShowEditOptions(!showEditOptions);
   };
   return (
     <>
@@ -36,11 +41,13 @@ const Goals = ({
       </button>
       <br></br>
       <button onClick={handlePostClick}>Add Goal</button>
+      <button onClick={handleEditClick}>⚙</button>
       <GoalList
         goals={goals}
         goalCategory={goalCategory}
         refreshGoalsKey={refreshGoalsKey}
         setRefreshGoalsKey={setRefreshGoalsKey}
+        showEditOptions={showEditOptions}
       />
       {showModal ? (
         <AddGoal

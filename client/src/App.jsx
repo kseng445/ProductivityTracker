@@ -20,7 +20,6 @@ const App = () => {
         },
       };
       axios.get("/goals", query).then((result) => {
-        console.log(result.data);
         setGoals(result.data);
       });
     }

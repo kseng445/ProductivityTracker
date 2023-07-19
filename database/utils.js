@@ -40,8 +40,22 @@ const patchGoalCurrent = (body) => {
     });
 };
 
+const patchGoalOrder_s = async (body) => {
+  try {
+    for (let i = 0; i < body.length; i++) {
+      await db.query(
+        `UPDATE goals SET order_ = ${body[i].order_} WHERE id = ${body[i].id}`
+      );
+    }
+    return true;
+  } catch (err) {
+    return err;
+  }
+};
+
 module.exports = {
   getGoals,
   postGoals,
   patchGoalCurrent,
+  patchGoalOrder_s,
 };

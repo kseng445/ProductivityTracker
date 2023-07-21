@@ -13,6 +13,7 @@ const GoalCard = ({
   showEditOptions,
   tentativeOrder,
   setTentativeOrder,
+  sortedGoals,
 }) => {
   const handleAdd = () => {
     if (current < quantity) {
@@ -78,6 +79,37 @@ const GoalCard = ({
     setTentativeOrder(tempOrder);
   };
 
+  const handleRemove = () => {
+    const confirm = window.confirm(
+      `Are you sure you want remove the goal: "${goal}"?`
+    );
+
+    if (confirm) {
+      let idsAndOrder_s = [];
+      for (let i = order_ + 1; i < sortedGoals.length; i++) {
+        let tempObj = {
+          id: sortedGoals[i].id,
+          newOrder_: sortedGoals[i].order_ - 1,
+        };
+        idsAndOrder_s.push(tempObj);
+      }
+      let deactivatedGoalID = id;
+      let body = {
+        idsAndOrder_s,
+        deactivatedGoalID,
+      };
+      axios
+        .patch("/goals/deactivate", body)
+        .then(() => {
+          console.log("Successfully removed goal");
+          setRefreshGoalsKey(!refreshGoalsKey);
+        })
+        .catch(() => {
+          console.log("There was an error trying to patch /goals/deactivate");
+        });
+    }
+  };
+
   return (
     <div className="goal-card">
       <div>{goal}</div>
@@ -88,7 +120,7 @@ const GoalCard = ({
         <>
           <button onClick={() => handleOrderChange("up")}>↑</button>
           <button onClick={() => handleOrderChange("down")}>↓</button>
-          <button>Remove</button>
+          <button onClick={handleRemove}>Remove</button>
         </>
       ) : null}
     </div>

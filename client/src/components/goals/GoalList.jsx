@@ -102,6 +102,7 @@ const GoalList = ({
             showEditOptions={showEditOptions}
             tentativeOrder={tentativeOrder}
             setTentativeOrder={setTentativeOrder}
+            sortedGoals={sortedGoals}
           />
         );
       })}

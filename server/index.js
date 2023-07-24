@@ -5,11 +5,13 @@ const postgreSQL = require("../database/index.js"); // imported/required just to
 const utils = require("../database/utils.js");
 const {
   getGoals,
-  postGoals,
+  postGoal,
   patchGoalCurrent,
   patchGoalCurrentReset,
   patchGoalOrder_s,
   patchGoalDeactivated,
+  postActivity,
+  getActivities,
 } = utils;
 
 const app = express();
@@ -26,18 +28,19 @@ app.get("/", (req, res) => {
   res.render("index.html");
 });
 
-app.get("/goals", async (req, res) => {
-  try {
-    var goals = await getGoals(req.query);
-    res.status(200).send(goals);
-  } catch (err) {
-    console.error(err);
-    res.sendStatus(500);
-  }
+app.get("/goals", (req, res) => {
+  getGoals(req.query)
+    .then((goals) => {
+      res.status(200).send(goals);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
 });
 
 app.post("/goals", (req, res) => {
-  postGoals(req.body).then((result) => {
+  postGoal(req.body).then((result) => {
     if (result === true) {
       res.sendStatus(201);
     } else {
@@ -89,6 +92,28 @@ app.patch("/goals/deactivate", (req, res) => {
       res.sendStatus(500);
     }
   });
+});
+
+app.post("/timeline", (req, res) => {
+  postActivity(req.body).then((result) => {
+    if (result === true) {
+      res.sendStatus(201);
+    } else {
+      console.error(result);
+      res.sendStatus(500);
+    }
+  });
+});
+
+app.get("/timeline", (req, res) => {
+  getActivities(req.query)
+    .then((activities) => {
+      res.status(200).send(activities);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
 });
 
 app.listen(process.env.PORT, () => {

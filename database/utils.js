@@ -14,12 +14,11 @@ const getGoals = (query) => {
     });
 };
 
-const postGoals = (body) => {
+const postGoal = (body) => {
   var { goal, quantity, user_, category, order_ } = body;
-  var current = 0;
   return db
     .query(
-      `INSERT INTO goals (goal, quantity, current, user_, category, order_, deactivated) VALUES ('${goal}', ${quantity}, ${current}, '${user_}', ${category}, ${order_}, false);`
+      `INSERT INTO goals (goal, quantity, current, user_, category, order_, deactivated) VALUES ('${goal}', ${quantity}, 0, '${user_}', ${category}, ${order_}, false);`
     )
     .then(() => {
       return true;
@@ -82,11 +81,44 @@ const patchGoalDeactivated = async (body) => {
   }
 };
 
+const postActivity = (body) => {
+  var { activity, category, user_, start_date } = body;
+  return db
+    .query(
+      `INSERT INTO timeline (activity, category, user_, start_date, end_date) VALUES ('${activity}', '${category}', '${user_}', '${start_date}', null);`
+    )
+    .then(() => {
+      return true;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+const getActivities = (query) => {
+  var { user_, days } = query;
+  let beginningDate = new Date();
+  beginningDate.setDate(beginningDate.getDate() - days);
+  beginningDate = beginningDate.toISOString();
+  return db
+    .query(
+      `SELECT * FROM timeline WHERE user_ = '${user_}' AND start_date > '${beginningDate}';`
+    )
+    .then((data) => {
+      return data.rows;
+    })
+    .catch((err) => {
+      throw err;
+    });
+};
+
 module.exports = {
   getGoals,
-  postGoals,
+  postGoal,
   patchGoalCurrent,
   patchGoalCurrentReset,
   patchGoalOrder_s,
   patchGoalDeactivated,
+  postActivity,
+  getActivities,
 };

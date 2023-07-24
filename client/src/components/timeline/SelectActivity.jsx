@@ -1,12 +1,32 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const SelectActivity = ({ user }) => {
+const SelectActivity = ({
+  user,
+  setShowModal,
+  refreshActivitiesKey,
+  setRefreshActivitiesKey,
+}) => {
   const [category, setCategory] = useState("");
 
   const handleActivityChange = (activity) => {
-    console.log("Category: ", category);
-    console.log("Activity: ", activity);
+    let currentTimestamp = new Date();
+    let body = {
+      activity: activity,
+      category: category,
+      user_: user,
+      start_date: currentTimestamp,
+    };
+    console.log(body);
+    axios
+      .post("/timeline", body)
+      .then(() => {
+        setShowModal(false);
+        setRefreshActivitiesKey(!refreshActivitiesKey);
+      })
+      .catch(() => {
+        console.log("There was an error trying to post /timeline");
+      });
   };
 
   let activitiesHTML = "";
@@ -179,6 +199,15 @@ const SelectActivity = ({ user }) => {
           </>
         ) : null}
         {activitiesHTML}
+        <br></br>
+        <br></br>
+        <button
+          onClick={() => {
+            setShowModal(false);
+          }}
+        >
+          🗙
+        </button>
       </div>
     </div>
   );

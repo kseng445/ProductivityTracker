@@ -12,10 +12,12 @@ const App = () => {
   const [goals, setGoals] = useState([]);
   const [goalCategory, setGoalCategory] = useState(0);
   const [refreshGoalsKey, setRefreshGoalsKey] = useState(true);
+  const [activities, setActivities] = useState([]);
+  const [refreshActivitiesKey, setRefreshActivitiesKey] = useState(true);
 
   useEffect(() => {
     if (user !== "") {
-      var query = {
+      let query = {
         params: {
           user_: user,
         },
@@ -25,6 +27,20 @@ const App = () => {
       });
     }
   }, [user, refreshGoalsKey]);
+
+  useEffect(() => {
+    if (user !== "") {
+      let query = {
+        params: {
+          user_: user,
+          days: 1,
+        },
+      };
+      axios.get("/timeline", query).then((result) => {
+        setActivities(result.data);
+      });
+    }
+  }, [user, refreshActivitiesKey]);
 
   var pageContent;
   if (page === 0) {
@@ -42,7 +58,12 @@ const App = () => {
       <>
         <Navbar page={page} setPage={setPage} />
         <br></br>
-        <Timeline user={user} />
+        <Timeline
+          user={user}
+          activities={activities}
+          refreshActivitiesKey={refreshActivitiesKey}
+          setRefreshActivitiesKey={setRefreshActivitiesKey}
+        />
       </>
     );
   } else if (page === 2) {

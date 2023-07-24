@@ -28,6 +28,10 @@ button.active {
   outline: 2px solid #000;
 }
 
+.activity-card {
+  outline: 2px solid #000;
+}
+
 .progress-bar-container {
   position: relative;
   width: 200px;

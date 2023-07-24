@@ -1,8 +1,14 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import ActivityList from "./ActivityList.jsx";
 import SelectActivity from "./SelectActivity.jsx";
 
-const Timeline = ({ user }) => {
+const Timeline = ({
+  user,
+  activities,
+  refreshActivitiesKey,
+  setRefreshActivitiesKey,
+}) => {
   const [showModal, setShowModal] = useState(false);
 
   const handleActivitySelectClick = () => {
@@ -12,7 +18,15 @@ const Timeline = ({ user }) => {
   return (
     <>
       <button onClick={handleActivitySelectClick}>Activity Select</button>
-      {showModal === true ? <SelectActivity user={user} /> : null}
+      <ActivityList activities={activities} />
+      {showModal === true ? (
+        <SelectActivity
+          user={user}
+          setShowModal={setShowModal}
+          refreshActivitiesKey={refreshActivitiesKey}
+          setRefreshActivitiesKey={setRefreshActivitiesKey}
+        />
+      ) : null}
     </>
   );
 };

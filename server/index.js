@@ -7,6 +7,7 @@ const {
   getGoals,
   postGoals,
   patchGoalCurrent,
+  patchGoalCurrentReset,
   patchGoalOrder_s,
   patchGoalDeactivated,
 } = utils;
@@ -48,6 +49,17 @@ app.post("/goals", (req, res) => {
 
 app.patch("/goals/current", (req, res) => {
   patchGoalCurrent(req.body).then((result) => {
+    if (result === true) {
+      res.sendStatus(201);
+    } else {
+      console.error(result);
+      res.sendStatus(500);
+    }
+  });
+});
+
+app.patch("/goals/reset", (req, res) => {
+  patchGoalCurrentReset(req.body).then((result) => {
     if (result === true) {
       res.sendStatus(201);
     } else {

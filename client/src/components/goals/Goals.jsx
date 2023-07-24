@@ -22,6 +22,23 @@ const Goals = ({
   const handleEditClick = () => {
     setShowEditOptions(!showEditOptions);
   };
+
+  const handleReset = () => {
+    let goalIds = [];
+    for (let i = 0; i < renderedGoals.length; i++) {
+      goalIds.push(renderedGoals[i].id);
+    }
+    axios
+      .patch("/goals/reset", goalIds)
+      .then(() => {
+        console.log("Successfully reset everyday goals");
+        setRefreshGoalsKey(!refreshGoalsKey);
+      })
+      .catch(() => {
+        console.log("There was an error trying to patch /goals/reset");
+      });
+  };
+
   return (
     <>
       <button
@@ -43,6 +60,7 @@ const Goals = ({
       <br></br>
       <button onClick={handlePostClick}>Add Goal</button>
       <button onClick={handleEditClick}>⚙</button>
+      {goalCategory === 0 ? <button onClick={handleReset}>Reset</button> : null}
       <GoalList
         goals={goals}
         goalCategory={goalCategory}

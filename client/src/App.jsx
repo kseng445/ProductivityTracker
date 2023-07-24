@@ -4,6 +4,7 @@ import axios from "axios";
 import Navbar from "./components/Navbar.jsx";
 import UserSelect from "./components/user/UserSelect.jsx";
 import Goals from "./components/goals/Goals.jsx";
+import Timeline from "./components/timeline/Timeline.jsx";
 
 const App = () => {
   const [page, setPage] = useState(0);
@@ -41,7 +42,7 @@ const App = () => {
       <>
         <Navbar page={page} setPage={setPage} />
         <br></br>
-        Timeline Page
+        <Timeline user={user} />
       </>
     );
   } else if (page === 2) {

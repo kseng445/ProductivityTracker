@@ -41,6 +41,17 @@ const patchGoalCurrent = (body) => {
     });
 };
 
+const patchGoalCurrentReset = async (body) => {
+  try {
+    for (let i = 0; i < body.length; i++) {
+      await db.query(`UPDATE goals SET current = 0 WHERE id = ${body[i]};`);
+    }
+    return true;
+  } catch (err) {
+    return err;
+  }
+};
+
 const patchGoalOrder_s = async (body) => {
   try {
     for (let i = 0; i < body.length; i++) {
@@ -56,9 +67,6 @@ const patchGoalOrder_s = async (body) => {
 
 const patchGoalDeactivated = async (body) => {
   var { idsAndOrder_s, deactivatedGoalID } = body;
-  // console.log("body: ", body);
-  // console.log("idsAndOrder_s: ", idsAndOrder_s);
-  // console.log("deactivatedGoalID: ", deactivatedGoalID);
   try {
     for (let i = 0; i < idsAndOrder_s.length; i++) {
       await db.query(
@@ -78,6 +86,7 @@ module.exports = {
   getGoals,
   postGoals,
   patchGoalCurrent,
+  patchGoalCurrentReset,
   patchGoalOrder_s,
   patchGoalDeactivated,
 };

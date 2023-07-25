@@ -18,7 +18,7 @@ const Timeline = ({
   return (
     <>
       <button onClick={handleActivitySelectClick}>Activity Select</button>
-      <ActivityList activities={activities} />
+      <ActivityList activities={activities} user={user} />
       {showModal === true ? (
         <SelectActivity
           user={user}

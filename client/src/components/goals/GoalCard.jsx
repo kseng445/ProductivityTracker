@@ -111,7 +111,16 @@ const GoalCard = ({
   };
 
   return (
-    <div className="goal-card">
+    <div
+      className="goal-card"
+      style={{
+        width: "300px",
+        borderRadius: "4px",
+        background: `linear-gradient(310deg, gray 0% 10%, white 100%)`,
+        padding: "5px",
+        margin: "1px",
+      }}
+    >
       <div>{goal}</div>
       <ProgressBar current={current} quantity={quantity} />
       <button onClick={handleSubtract}>-</button>

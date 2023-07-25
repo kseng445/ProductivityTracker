@@ -6,6 +6,7 @@ const SelectActivity = ({
   setShowModal,
   refreshActivitiesKey,
   setRefreshActivitiesKey,
+  activities,
 }) => {
   const [category, setCategory] = useState("");
 
@@ -21,8 +22,29 @@ const SelectActivity = ({
     axios
       .post("/timeline", body)
       .then(() => {
-        setShowModal(false);
-        setRefreshActivitiesKey(!refreshActivitiesKey);
+        if (activities.length !== 0) {
+          let body = {
+            id: activities[0].id,
+            end_date: currentTimestamp,
+          };
+          axios
+            .patch("/timeline/end_date", body)
+            .then(() => {
+              setShowModal(false);
+              setRefreshActivitiesKey(!refreshActivitiesKey);
+            })
+            .catch(() => {
+              console.log(
+                "There was an error trying to patch /timeline/end_date"
+              );
+            });
+        } else {
+          console.log(
+            `There were no previous activities in the database for user: ${user}. Therefore, the selected activity has been added (posted) to the database, but there was no patch request made to update end_date of any previous activity (because there is no previous activity to update).`
+          );
+          setShowModal(false);
+          setRefreshActivitiesKey(!refreshActivitiesKey);
+        }
       })
       .catch(() => {
         console.log("There was an error trying to post /timeline");

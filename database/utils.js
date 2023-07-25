@@ -112,6 +112,18 @@ const getActivities = (query) => {
     });
 };
 
+const patchActivityEnd_date = (body) => {
+  var { id, end_date } = body;
+  return db
+    .query(`UPDATE timeline SET end_date = '${end_date}' WHERE id = ${id};`)
+    .then(() => {
+      return true;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
 module.exports = {
   getGoals,
   postGoal,
@@ -121,4 +133,5 @@ module.exports = {
   patchGoalDeactivated,
   postActivity,
   getActivities,
+  patchActivityEnd_date,
 };

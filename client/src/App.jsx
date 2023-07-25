@@ -37,7 +37,11 @@ const App = () => {
         },
       };
       axios.get("/timeline", query).then((result) => {
-        setActivities(result.data);
+        let activities = result.data;
+        activities.sort((a, b) => {
+          return b.start_date.localeCompare(a.start_date);
+        });
+        setActivities(activities);
       });
     }
   }, [user, refreshActivitiesKey]);

@@ -12,6 +12,7 @@ const {
   patchGoalDeactivated,
   postActivity,
   getActivities,
+  patchActivityEnd_date,
 } = utils;
 
 const app = express();
@@ -114,6 +115,17 @@ app.get("/timeline", (req, res) => {
       console.error(err);
       res.sendStatus(500);
     });
+});
+
+app.patch("/timeline/end_date", (req, res) => {
+  patchActivityEnd_date(req.body).then((result) => {
+    if (result === true) {
+      res.sendStatus(201);
+    } else {
+      console.error(result);
+      res.sendStatus(500);
+    }
+  });
 });
 
 app.listen(process.env.PORT, () => {

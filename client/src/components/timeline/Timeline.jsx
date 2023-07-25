@@ -25,6 +25,7 @@ const Timeline = ({
           setShowModal={setShowModal}
           refreshActivitiesKey={refreshActivitiesKey}
           setRefreshActivitiesKey={setRefreshActivitiesKey}
+          activities={activities}
         />
       ) : null}
     </>

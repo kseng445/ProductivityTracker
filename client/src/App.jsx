@@ -92,7 +92,7 @@ const App = () => {
       <>
         <Navbar page={page} setPage={setPage} />
         <br></br>
-        History Page
+        <div style={{ color: "rgb(232, 232, 232)" }}>WIP</div>
       </>
     );
   }

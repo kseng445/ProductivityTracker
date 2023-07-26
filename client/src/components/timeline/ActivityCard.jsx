@@ -8,17 +8,17 @@ const ActivityCard = ({ activity, user }) => {
   if (activity.end_date === null) {
     let currentTimestamp = new Date();
     let start_date = new Date(activity.start_date);
-    start_date = new Date(
-      Date.UTC(
-        start_date.getFullYear(),
-        start_date.getMonth(),
-        start_date.getDate(),
-        start_date.getHours(),
-        start_date.getMinutes(),
-        start_date.getSeconds(),
-        start_date.getMilliseconds()
-      )
-    );
+    // start_date = new Date(
+    //   Date.UTC(
+    //     start_date.getFullYear(),
+    //     start_date.getMonth(),
+    //     start_date.getDate(),
+    //     start_date.getHours(),
+    //     start_date.getMinutes(),
+    //     start_date.getSeconds(),
+    //     start_date.getMilliseconds()
+    //   )
+    // );
     duration = Math.floor(
       (currentTimestamp.getTime() - start_date.getTime()) / 60000
     );

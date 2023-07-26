@@ -56,13 +56,14 @@ const AddGoal = ({
   return (
     <div className="modal-container">
       <div className="modal-content">
-        <div>New Goal:</div>
+        <div style={{ color: "rgb(232, 232, 232)" }}>New Goal:</div>
         <input
           value={goal}
           onChange={(e) => {
             handleChange(e);
           }}
-          placeholder="Do 10 hours of piano practice"
+          placeholder="Do 10 hours of practice"
+          style={{ fontSize: "20px" }}
         />
         {showError ? <div>Error</div> : <br></br>}
         <button onClick={handleCancel}>Cancel</button>

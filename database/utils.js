@@ -112,16 +112,27 @@ const getActivities = (query) => {
     });
 };
 
-const patchActivityEnd_date = (body) => {
-  var { id, end_date } = body;
-  return db
-    .query(`UPDATE timeline SET end_date = '${end_date}' WHERE id = ${id};`)
-    .then(() => {
-      return true;
-    })
-    .catch((err) => {
-      return err;
-    });
+const patchActivityEnd_date = async (body) => {
+  // var { id, end_date } = body;
+  // spaghetti
+  var { end_date, user_ } = body;
+  try {
+    var id = await db.query(
+      `SELECT id FROM timeline WHERE user_ = '${user_}' AND end_date IS NULL;`
+    );
+    return db
+      .query(
+        `UPDATE timeline SET end_date = '${end_date}' WHERE id = ${id.rows[0].id};`
+      )
+      .then(() => {
+        return true;
+      })
+      .catch((err) => {
+        return err;
+      });
+  } catch (err) {
+    return err;
+  }
 };
 
 module.exports = {

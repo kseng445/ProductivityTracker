@@ -18,14 +18,19 @@ const SelectActivity = ({
       user_: user,
       start_date: currentTimestamp,
     };
-    console.log(body);
     axios
       .post("/timeline", body)
       .then(() => {
         if (activities.length !== 0) {
+          // edge case exists where if on one device the first activity (in database) is posted
+          // and then on another device that is not refreshed an activity is posted,
+          // the second device will think it's also posting the first activity.
+          // rn i'm just gonna write dogshit code for the sake of time so i'm gonna ignore that edge case and
+          // go to utils.js and modify patchActivityEnd_date
           let body = {
             id: activities[0].id,
             end_date: currentTimestamp,
+            user_: user,
           };
           axios
             .patch("/timeline/end_date", body)
@@ -73,6 +78,7 @@ const SelectActivity = ({
         "Food Prep",
         "Cleaning",
         "Laundry",
+        "Shopping",
         "Other",
       ];
       activitiesHTML = activities.map((activity) => (
@@ -138,6 +144,7 @@ const SelectActivity = ({
         "Food Prep",
         "Cleaning",
         "Laundry",
+        "Shopping",
         "Other",
       ];
       activitiesHTML = activities.map((activity) => (
@@ -180,7 +187,7 @@ const SelectActivity = ({
   return (
     <div className="modal-container">
       <div className="modal-content">
-        <div>Category:</div>
+        <div style={{ color: "rgb(232, 232, 232)" }}>Category:</div>
         <button
           className={category === "Productivity" ? "active" : ""}
           onClick={() => {
@@ -217,7 +224,7 @@ const SelectActivity = ({
           <>
             <br></br>
             <br></br>
-            <div>Activity:</div>
+            <div style={{ color: "rgb(232, 232, 232)" }}>Activity:</div>
           </>
         ) : null}
         {activitiesHTML}
@@ -228,7 +235,7 @@ const SelectActivity = ({
             setShowModal(false);
           }}
         >
-          🗙
+          x
         </button>
       </div>
     </div>

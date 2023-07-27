@@ -117,13 +117,12 @@ const patchActivityEnd_date = async (body) => {
   // spaghetti
   var { end_date, user_ } = body;
   try {
-    var id = await db.query(
+    var ids = await db.query(
       `SELECT id FROM timeline WHERE user_ = '${user_}' AND end_date IS NULL;`
     );
+    var id = Math.min(ids.rows[0].id, ids.rows[1].id);
     return db
-      .query(
-        `UPDATE timeline SET end_date = '${end_date}' WHERE id = ${id.rows[0].id};`
-      )
+      .query(`UPDATE timeline SET end_date = '${end_date}' WHERE id = ${id};`)
       .then(() => {
         return true;
       })

@@ -6,7 +6,7 @@ const SelectActivity = ({
   setShowModal,
   refreshActivitiesKey,
   setRefreshActivitiesKey,
-  activities,
+  activities, // pretty sure i don't need to use this prop
 }) => {
   const [category, setCategory] = useState("");
 
@@ -21,35 +21,32 @@ const SelectActivity = ({
     axios
       .post("/timeline", body)
       .then(() => {
-        if (activities.length !== 0) {
-          // edge case exists where if on one device the first activity (in database) is posted
-          // and then on another device that is not refreshed an activity is posted,
-          // the second device will think it's also posting the first activity.
-          // rn i'm just gonna write dogshit code for the sake of time so i'm gonna ignore that edge case and
-          // go to utils.js and modify patchActivityEnd_date
-          let body = {
-            id: activities[0].id,
-            end_date: currentTimestamp,
-            user_: user,
-          };
-          axios
-            .patch("/timeline/end_date", body)
-            .then(() => {
-              setShowModal(false);
-              setRefreshActivitiesKey(!refreshActivitiesKey);
-            })
-            .catch(() => {
-              console.log(
-                "There was an error trying to patch /timeline/end_date"
-              );
-            });
-        } else {
-          console.log(
-            `There were no previous activities in the database for user: ${user}. Therefore, the selected activity has been added (posted) to the database, but there was no patch request made to update end_date of any previous activity (because there is no previous activity to update).`
-          );
-          setShowModal(false);
-          setRefreshActivitiesKey(!refreshActivitiesKey);
-        }
+        // edge case exists where if on one device the first activity (in database) is posted
+        // and then on another device that is not refreshed an activity is posted,
+        // the second device will think it's also posting the first activity.
+        // rn i'm just gonna write dogshit code for the sake of time so i'm gonna ignore that edge case and
+        // go to utils.js and modify patchActivityEnd_date
+        let body = {
+          end_date: currentTimestamp,
+          user_: user,
+        };
+        axios
+          .patch("/timeline/end_date", body)
+          .then(() => {
+            setShowModal(false);
+            setRefreshActivitiesKey(!refreshActivitiesKey);
+          })
+          .catch(() => {
+            console.log(
+              "There was an error trying to patch /timeline/end_date"
+            );
+            console.log("or");
+            console.log(
+              `There were no previous activities in the database for user: ${user}. Therefore, the selected activity has been added (posted) to the database, but there was no patch request made to update end_date of any previous activity (because there is no previous activity to update).`
+            );
+            setShowModal(false);
+            setRefreshActivitiesKey(!refreshActivitiesKey);
+          });
       })
       .catch(() => {
         console.log("There was an error trying to post /timeline");
